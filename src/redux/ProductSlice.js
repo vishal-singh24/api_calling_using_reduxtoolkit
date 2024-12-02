@@ -1,9 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {authApi} from './services/instance'
 
 export const fetchProducts = createAsyncThunk('FetchProducts', async () => {
-    const res = await fetch('https://fakestoreapi.com/products');
-    const result = await res.json();
-    return result;
+    try{
+        const res = await authApi.get('/products');
+    console.log('Product response' + res)
+    return res.data;
+
+    }catch(error){
+        console.log("error from products"+error)
+    }
+    
 
 })
 

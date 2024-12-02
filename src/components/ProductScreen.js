@@ -1,7 +1,7 @@
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchProducts } from '../redux/Slice';
+import { fetchProducts } from '../redux/ProductSlice'
 import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -9,7 +9,7 @@ const ProductScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const products = useSelector(state => state.Product);
-  console.log(JSON.stringify(products));
+  console.log("Products information:"+JSON.stringify(products.data));
 
   useEffect(() => {
     dispatch(fetchProducts());
