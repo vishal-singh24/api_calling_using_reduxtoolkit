@@ -9,7 +9,7 @@ const ProductScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const products = useSelector(state => state.Product);
-  console.log("Products information:"+JSON.stringify(products.data));
+  console.log("Products information:" + JSON.stringify(products.data));
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -29,8 +29,10 @@ const ProductScreen = () => {
             <View style={styles.productDetails}>
               <Text style={styles.productName}>{item.title}</Text>
               <Text style={styles.productPrice}>${item.price}</Text>
+              {/* <Text style={styles.productPrice}>${item.qty}</Text> */}
+
               <View style={styles.addToCartButtonContainer}>
-                <TouchableOpacity style={{
+                {item.qty == 0 ? (<TouchableOpacity style={{
                   width: '50%',
                   backgroundColor: 'green',
                   borderRadius: 10,
@@ -41,22 +43,26 @@ const ProductScreen = () => {
                   <Text style={{ color: 'white' }}>
                     Add to Cart
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{
-                  width: '20%',
-                  backgroundColor: 'green',
-                  borderRadius: 10,
-                  opacity: 0.8,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginLeft: 10
-                }}>
-                  <Text style={{ color: 'white' }}>
-                    -
-                  </Text>
-                </TouchableOpacity>
-                <Text style={{ marginLeft: 10, fontSize: 16, fontWeight: 400, alignSelf: 'center' }}>{'0'}</Text>
-                <TouchableOpacity style={{
+                </TouchableOpacity>) : null}
+
+                {item.qty == 0 ? null :
+                  (<TouchableOpacity style={{
+                    width: '20%',
+                    backgroundColor: 'green',
+                    borderRadius: 10,
+                    opacity: 0.8,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginLeft: 10
+                  }}>
+                    <Text style={{ color: 'white' }}>
+                      -
+                    </Text>
+                  </TouchableOpacity>)}
+                {item.qty == 0 ? null : (<Text style={{ marginLeft: 10, fontSize: 16, fontWeight: 400, alignSelf: 'center' }}>${item.qty}</Text>
+                )}
+
+                {item.qty == 0 ? null : (<TouchableOpacity style={{
                   width: '20%',
                   backgroundColor: 'green',
                   borderRadius: 10,
@@ -68,7 +74,8 @@ const ProductScreen = () => {
                   <Text style={{ color: 'white' }}>
                     +
                   </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>)}
+
               </View>
             </View>
 

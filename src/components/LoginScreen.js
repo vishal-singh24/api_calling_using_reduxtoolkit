@@ -30,11 +30,11 @@ const LoginScreen = () => {
 
    return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-         <TextInput placeholder='Enter user name' style={{ borderWidth: 1, height: 50, width: '80%' }}
+         <TextInput placeholder='Enter user name' style={{ borderWidth: 1, height: 50, width: '80%',paddingLeft:20,borderRadius:20 }}
             onChangeText={
                setUserName}
          />
-         <TextInput placeholder='Enter Password' style={{ borderWidth: 1, height: 50, width: '80%', marginTop: 20 }}
+         <TextInput placeholder='Enter Password' style={{ borderWidth: 1, height: 50, width: '80%', marginTop: 20,paddingLeft:20,borderRadius:20 }}
             onChangeText={
                setPassword
             }

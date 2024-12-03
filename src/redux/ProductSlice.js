@@ -32,7 +32,10 @@ const ProductSlice = createSlice({
         });
         builder.addCase(fetchProducts.fulfilled, (state, action) => {
             state.isLoader = false;
-            state.data = action.payload;
+            state.data = action.payload.map(data=>({
+                ...data,
+                qty:0
+            }));
         })
     }
 })
