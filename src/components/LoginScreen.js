@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/LoginSlice';
+import { loadToken } from '../redux/AuthSlice';
 
 const LoginScreen = () => {
    const [username, setUserName] = useState('');
@@ -11,13 +12,23 @@ const LoginScreen = () => {
    const navigation = useNavigation();
    const dispatch = useDispatch()
    const data = useSelector(state => state.login);
-   console.log("data coming from l")
+   console.log("data coming from login"+data)
+
+   useEffect(() => {
+      // Dispatch loadToken when the app starts
+      dispatch(loadToken());
+   }, [dispatch]);
+
+   useEffect(() => {
+      // Navigate to Product screen if user is logged in
+      if (data.userToken) {
+         navigation.replace('Product');
+      }
+   }, [data.userToken, navigation]);
+
 
    const handleLogin = () => {
       dispatch(login({ username, password }));
-      // if(data.userToken){
-      //    navigation.replace('Product')
-      // }
    };
 
    useEffect(() => {

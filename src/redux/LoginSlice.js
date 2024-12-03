@@ -2,18 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authApi } from './services/instance'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const login = createAsyncThunk('Login', async ({ username, password }, { rejectWithValue }) => {
+
+export const login = createAsyncThunk('Login', async ({ username, password }, {dispatch, rejectWithValue }) => {
 
     try {
 
         const res = await authApi.post('/auth/login', { username, password });
         console.log("Full Response:", res);
+        const token =res.data.token;
 
-        console.log("response from api " + res.data.token)
-        // await AsyncStorage.setItem('token', res.data.token)
+        console.log("response from api " + token)
+         await AsyncStorage.setItem('token', token)
 
-
-        return res.data.token;
+         dispatch(setItem(token));
+        return token;
 
     } catch (error) {
         if (error) {
@@ -29,6 +31,11 @@ const LoginSlice = createSlice({
         userToken: null,
         isError: false,
 
+    },
+    reducers: {
+        setItem: (state, action) => {
+            state.userToken = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
@@ -48,5 +55,5 @@ const LoginSlice = createSlice({
     }
 }
 )
-
+export const { setItem } = LoginSlice.actions; 
 export default LoginSlice.reducer
