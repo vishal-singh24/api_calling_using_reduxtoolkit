@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {authApi} from './services/instance'
+import { authApi } from './services/instance'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const login = createAsyncThunk('Login', async ({ username, password }, { rejectWithValue }) => {
 
@@ -9,6 +10,8 @@ export const login = createAsyncThunk('Login', async ({ username, password }, { 
         console.log("Full Response:", res);
 
         console.log("response from api " + res.data.token)
+        // await AsyncStorage.setItem('token', res.data.token)
+
 
         return res.data.token;
 
@@ -20,7 +23,7 @@ export const login = createAsyncThunk('Login', async ({ username, password }, { 
 });
 
 const LoginSlice = createSlice({
-    name: 'auth',
+    name: 'Login',
     initialState: {
         isloading: false,
         userToken: null,
@@ -42,8 +45,6 @@ const LoginSlice = createSlice({
             state.isError = false
         }
         )
-
-
     }
 }
 )

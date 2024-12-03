@@ -16,7 +16,7 @@ const Navigation = () => {
           <Stack.Screen name='Login' component={LoginScreen}/>
             <Stack.Screen
             name='Product' component={ProductScreen}
-            options={{headerShown:false}}
+            options={{}}
             />
             <Stack.Screen
             name='Cart' component={CartScreen}

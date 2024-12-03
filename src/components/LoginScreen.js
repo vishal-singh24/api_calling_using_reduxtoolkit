@@ -10,8 +10,8 @@ const LoginScreen = () => {
    const [password, setPassword] = useState('');
    const navigation = useNavigation();
    const dispatch = useDispatch()
-   const data = useSelector(state => state.auth);
-   console.log(" userToken:", data.userToken);
+   const data = useSelector(state => state.login);
+   console.log("data coming from l")
 
    const handleLogin = () => {
       dispatch(login({ username, password }));
