@@ -1,10 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice } from "@reduxjs/toolkit";
 
+export const loadToken = createAsyncThunk('auth/loadToken', async () => {
+    const token = await AsyncStorage.getItem('token');
+    return token || null;
+  });
+
 const AuthSlice=createSlice({
     name:'auth',
     initialState:{
-        token:AsyncStorage.getItem('token')||null
+        token:null,
+        status:'idle'
     },
     reducers:{
         setItem:(state,action)=>{
@@ -13,8 +19,13 @@ const AuthSlice=createSlice({
 
         },
         removeItem:(state,action)=>{
+            state.token=null;
             AsyncStorage.removeItem('token')
         }
+
+    },
+    extraReducers:{
+
     }
 })
 
